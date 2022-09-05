@@ -30,7 +30,7 @@ def add_sentiment():
     nltk.download('punkt')
     nltk.download('stopwords')
     covid()
-    vax()
+    #vax()
 
 def get_stopword():
     with open("./preprocessing/stopwords_vader.txt", "rb") as fp:

@@ -39,7 +39,7 @@ def garimella_graph():
 
 def covid_graph():
     starting_path = os.getcwd()
-    path = os.path.join(starting_path, 'data/corona_virus/Graph')
+    path = os.path.join(starting_path, 'data', 'corona_virus', 'Graph')
     os.chdir(path)             
     log_write_start_end(True, 'COVID-19 GRAPH')
 
@@ -60,7 +60,7 @@ def covid_graph():
 
 def vax_graph():
     starting_path = os.getcwd()
-    path = os.path.join(starting_path, 'data/vax_no_vax/Graph')
+    path = os.path.join(starting_path, 'data', 'vax_no_vax', 'Graph')
     os.chdir(path)             
     log_write_start_end(True, 'VACCINATION GRAPH')
     info_no_sent_metis, info_no_sent_fluid = community_detection('Vax', 1, 'weight')

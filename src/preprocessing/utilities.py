@@ -1,3 +1,5 @@
+import os.path
+
 import pandas as pd
 import networkx as nx
 import re 
@@ -133,20 +135,14 @@ def add_edge(G, tweet, hashtag, likes, retweets, replies, source, destination):
             G.add_edge(source, destination, weight = 1.0)
     return G
 
-def manage_and_save(graphs, path):
+def manage_and_save(graphs):
 
     for graph in graphs: 
 
-        name = 'Final_'+type(graph).__name__   
-        suffix = ''     
-        if 'vax' in graph.name:
-            threshold = 1
-            name = name + '_Vax'
-            suffix = '_Vax.gml'
-        else:
-            threshold = 3
-            name = name + '_Covid'
-            suffix = '_Covid.gml'
+        name = 'Final_'+type(graph).__name__
+        threshold = 3
+        name = name + '_Covid'
+        suffix = '_Covid.gml'
 
         name = name + '.gml'
 
@@ -159,15 +155,18 @@ def manage_and_save(graphs, path):
         print(nx.info(graph))
         print("{:<20}{:<8}".format('Real number of Edges: ', nodes_management(graph, 'count')))
         print()
+
         if 'Direct' not in graph.name:
-            G_multi = nx.MultiGraph()
+            nx.MultiGraph()
             G_multi = create_multi_graph(graph)
             G_multi.name = f'Final_MultiGraph{suffix}'
-            nx.write_gml(G_multi, path + '/Graph/' + G_multi.name)
+            write_path = os.path.join(os.getcwd(), 'data', 'corona_virus', 'Graph', G_multi.name)
+            nx.write_gml(G_multi, write_path)
             print(nx.info(G_multi))
             print()        
 
-        nx.write_gml(graph, f'{path}/Graph/{name}')
+        write_path = os.path.join(os.getcwd(), 'data', 'corona_virus', 'Graph', name)
+        nx.write_gml(graph, write_path)
 
 def create_multi_graph(G):
     G_multi = nx.MultiGraph()

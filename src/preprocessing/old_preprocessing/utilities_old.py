@@ -1,5 +1,6 @@
 import pandas as pd
 import networkx as nx
+import os
 
 def get_only_date(date):
     date = str(date).split()[0]
@@ -116,8 +117,8 @@ def add_edge(G, tweet, hashtag, likes, retweets, replies, source, destination):
                 G.add_edge(source, destination, weight = 1.0)
     return G
 
-def manage_and_save(graphs, path):
 
+def manage_and_save(graphs, path):
     for graph in graphs: 
 
         name = 'Final_'+type(graph).__name__
@@ -145,7 +146,8 @@ def manage_and_save(graphs, path):
         print("{:<20}{:<8}".format('Real number of Edges: ', nodes_management(graph, 'count', multi)))
         print()
 
-        nx.write_gml(graph, path + '/Graph/' + name)
+        write_path = os.path.join(path, 'Graph', name)
+        nx.write_gml(graph, write_path)
 
 
 def delete_not_useful_nodes_garimella(G):
